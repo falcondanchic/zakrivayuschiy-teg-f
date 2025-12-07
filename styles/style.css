@@ -327,6 +327,7 @@
   padding: var(--dialog-padding) var(--dialog-padding);
   background-color: var(--bg-color);
   inline-size: var(--dialog-width);
+  max-inline-size: 100%;
 }
 
 .dialog::backdrop {
