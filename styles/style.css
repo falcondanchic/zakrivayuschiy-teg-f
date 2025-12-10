@@ -32,9 +32,9 @@
   align-items: center;
   gap: var(--header-gap);
   border: var(--border-style);
+  padding: var(--header-padding);
   text-align: center;
   background-color: var(--bg-color);
-  min-block-size: clamp(20.4375rem, 17.4808rem + 12.6154vw, 23rem);
   inline-size: var(--content-width);
 }
 
@@ -67,12 +67,11 @@
 }
 
 .card__title {
-  padding-inline: var(--card-title-padding-inline);
+  padding: var(--card-title-padding);
   font-family: var(--font-main);
   font-size: var(--text-size-main);
   line-height: var(--line-height-title);
   font-variation-settings: "wght" var(--font-weight-title);
-  min-block-size: 30px;
 }
 
 .card__body {
@@ -117,6 +116,7 @@
 
 .card__label {
   position: absolute;
+  z-index: 1;
   color: var(--card-label-text-color);
   font-size: var(--text-size-small);
   text-shadow: -1px 0 var(--card-label-stroke-color),
@@ -154,21 +154,51 @@
 }
 
 .button {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: none;
-  background: none;
+  border: var(--border-style);
+  overflow: hidden;
+  background-color: var(--bg-color);
   transition: box-shadow 0.3s ease;
   cursor: pointer;
 }
 
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--accent-color);
+  transition: transform 0.5s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button:focus-visible {
+  box-shadow: 2px 2px 0 var(--accent-color);
+  outline: none;
+}
+
 .card__icon-button {
   margin: 0;
+  border: none;
   padding: 0;
   box-shadow: none;
+  overflow: visible;
+  background: none;
   transition: outline 0.3s ease;
+}
+
+.card__icon-button::before {
+  content: none;
 }
 
 .card__icon-button:focus {
@@ -176,6 +206,7 @@
 }
 
 .card__icon-button:focus-visible {
+  box-shadow: none;
   outline: var(--border-style);
   outline-offset: -1px;
 }
@@ -244,28 +275,8 @@
 }
 
 .card__like-button {
-  position: relative;
-  border: var(--border-style);
-  overflow: hidden;
-  background-color: var(--bg-color);
   inline-size: 130px;
   block-size: 38px;
-}
-
-.card__like-button::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-color: var(--accent-color);
-  transition: transform 0.5s ease-in-out;
-  transform: scaleX(0);
-  transform-origin: left center;
-  pointer-events: none;
-}
-
-.card__like-button:hover::before {
-  transform: scaleX(1);
 }
 
 .button__text {
@@ -279,14 +290,10 @@
 }
 
 .button--save {
-  position: relative;
   flex-direction: row;
   gap: var(--button-save-gap);
-  border: var(--border-style);
-  overflow: hidden;
-  background-color: var(--bg-color);
   inline-size: var(--button-save-width);
-  block-size: var(--button-save-height);
+  min-block-size: var(--button-save-height);
 }
 
 .button--save svg {
@@ -295,22 +302,6 @@
   color: var(--button-text-color);
   inline-size: var(--button-icon-size);
   mix-blend-mode: difference;
-}
-
-.button--save::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-color: var(--accent-color);
-  transition: transform 0.5s ease-in-out;
-  transform: scaleX(0);
-  transform-origin: left center;
-  pointer-events: none;
-}
-
-.button--save:hover::before {
-  transform: scaleX(1);
 }
 
 .dialog {
@@ -346,42 +337,12 @@
 }
 
 .dialog__button {
-  position: relative;
   z-index: 1;
   grid-column: 1 / -1;
-  border: var(--border-style);
-  background-color: var(--bg-color);
   min-block-size: 38px;
 }
 
-.dialog__button::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-color: var(--accent-color);
-  transition: transform 0.5s ease-in-out;
-  transform: scaleX(0);
-  transform-origin: left center;
-  pointer-events: none;
-}
-
-.dialog__button:hover::before {
-  transform: scaleX(1);
-}
-
-.button--save:focus-visible,
-.card__like-button:focus-visible,
-.dialog__button:focus-visible {
-  box-shadow: 2px 2px 0 var(--accent-color);
-  outline: none;
-}
-
 @media (width <= 375px) {
-  .card__title {
-    line-height: 26px;
-  }
-
   .button--save {
     flex-direction: column;
     inline-size: var(--button-save-width-mobile);

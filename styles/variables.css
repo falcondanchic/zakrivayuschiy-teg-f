@@ -3,10 +3,10 @@
   --text-size-main: 18px;
   --text-size-small: 14px;
   --line-height-main: 21px;
-  --line-height-title: 30px;
+  --line-height-title: 1.22;
 
   --card-padding: 25px;
-  --card-title-padding-inline: 10px;
+  --card-title-padding: 4px 10px;
 
   --card-label-offset: 25px;
   --card-label-text-color: rgba(0, 0, 0, 0.5);
@@ -40,6 +40,7 @@
 
   --page-gap: 100px;
   --header-gap: 20px;
+  --header-padding: clamp(7.5rem, 6.9231rem + 2.4615vw, 8rem) 0;
   --body-gap: 50px;
 
   --font-main: "Inter", sans-serif;
